@@ -36,7 +36,8 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
-            height: 200vh; /* 增加页面高度以便测试滚动 */
+            min-height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M35,15 C35,15 25,25 25,30 C25,35 30,35 35,30 C40,35 45,35 45,30 C45,25 35,15 35,15 Z' fill='rgba(255,200,180,0.1)'/%3E%3C/svg%3E");
         }
         
         /* 网站头部样式 */
@@ -124,6 +125,8 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(0,0,0,0.03);
             transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .section:hover {
@@ -370,7 +373,7 @@
             object-fit: cover;
         }
         
-        /* 新闻区域样式 */
+        /* 新闻区域样式 - 修改为垂直排列 */
         .news-list {
             display: flex;
             flex-direction: column;
@@ -387,6 +390,7 @@
             display: flex;
             gap: 20px;
             align-items: center;
+            position: relative;
         }
         
         .news-item:hover {
@@ -812,6 +816,18 @@
                 padding: 20px;
             }
         }
+        
+        /* 猫爪印装饰 */
+        .cat-paw {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M35,15 C35,15 25,25 25,30 C25,35 30,35 35,30 C40,35 45,35 45,30 C45,25 35,15 35,15 Z' fill='rgba(239,77,18,0.1)'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.3;
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
@@ -851,7 +867,7 @@
                             <p>▼クリック！▼</p>
                         </div>
                     </div>
-                    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('1.png')" data-url="https://pan.baidu.com/s/1LrZ2Cg4uGoDh1Vcvs4qcMA?pwd=tori">
+                    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('1.png')" data-url="https://pan.quark.cn/s/a98ce543fb14">
                         <div class="slide-content">
                             <h3>ゲームデモダウンロード</h3>
                             <p>最新バージョン0.01.15</p>
@@ -911,7 +927,7 @@
             </div>
         </section>
         
-        <!-- 新闻区域 -->
+        <!-- 新闻区域 - 修复并修改为垂直排列 -->
         <section class="section animated delay-2">
             <h3>- News -</h3>
             <div class="news-list">
@@ -919,6 +935,18 @@
                     <div class="news-date">2025年7月8日</div>
                     <div class="news-content">
                         <p>サイトリニューアル完成！</p>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">2025年7月22日</div>
+                    <div class="news-content">
+                        <p>個人サイトのサーバーIPを変更しました。</p>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">2025年7月23日</div>
+                    <div class="news-content">
+                        <p>ゲームのデモを更新しました。</p>
                     </div>
                 </div>
             </div>
@@ -1196,6 +1224,38 @@
                     this.style.transform = 'translate(0, 0)';
                 }, 1000);
             });
+            
+            // 添加猫爪印装饰
+            function createCatPaws() {
+                const container = document.body;
+                const pawCount = 20;
+                
+                for (let i = 0; i < pawCount; i++) {
+                    const paw = document.createElement('div');
+                    paw.className = 'cat-paw';
+                    
+                    // 随机位置
+                    const left = Math.random() * 100;
+                    const top = Math.random() * 100;
+                    
+                    // 随机大小
+                    const size = 20 + Math.random() * 30;
+                    
+                    // 随机旋转角度
+                    const rotation = Math.random() * 360;
+                    
+                    paw.style.left = `${left}%`;
+                    paw.style.top = `${top}%`;
+                    paw.style.width = `${size}px`;
+                    paw.style.height = `${size}px`;
+                    paw.style.transform = `rotate(${rotation}deg)`;
+                    paw.style.opacity = 0.1 + Math.random() * 0.2;
+                    
+                    container.appendChild(paw);
+                }
+            }
+            
+            createCatPaws();
         });
     </script>
 </body>
