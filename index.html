@@ -867,7 +867,7 @@
                             <p>▼クリック！▼</p>
                         </div>
                     </div>
-                    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('1.png')" data-url="https://pan.quark.cn/s/a98ce543fb14">
+                    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('1.png')" data-url="https://pan.quark.cn/s/55e27da10b65">
                         <div class="slide-content">
                             <h3>ゲームデモダウンロード</h3>
                             <p>最新バージョン0.01.15</p>
@@ -953,6 +953,10 @@
                     <div class="news-date">2025年7月30日</div>
                     <div class="news-content">
                         <p>新しいアニメが公開されました</p>
+                <div class="news-item">
+                    <div class="news-date">2025年8月16日</div>
+                    <div class="news-content">
+                        <p>ゲームのデモを更新しました。</p>
                     </div>
                 </div>
             </div>
@@ -983,7 +987,7 @@
                     <!-- 修改标题为英文 -->
                     <h4>Game Demo</h4>
                     <p>ゲームの試遊版をダウンロードできます</p>
-                    <a href="https://pan.quark.cn/s/a98ce543fb14" class="link-btn">ダウンロード</a>
+                    <a href="https://pan.quark.cn/s/55e27da10b65" class="link-btn" download="https://pan.quark.cn/s/55e27da10b65">ダウンロード</a>
                 </div>
             </div>
         </section>
@@ -1089,7 +1093,17 @@
                     slide.addEventListener('click', function() {
                         const url = this.getAttribute('data-url');
                         if (url) {
-                            window.open(url, '_blank');
+                            if (url.endsWith('.zip')) {
+                                // 对于zip文件，直接触发下载
+                                const a = document.createElement('a');
+                                a.href = url;
+                                a.download = url.split('/').pop();
+                                document.body.appendChild(a);
+                                a.click();
+                                document.body.removeChild(a);
+                            } else {
+                                window.open(url, '_blank');
+                            }
                         }
                     });
                 });
